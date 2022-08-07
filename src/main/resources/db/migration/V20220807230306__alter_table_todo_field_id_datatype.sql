@@ -1,1 +1,0 @@
-alter table todo alter COLUMN id type varchar(50);
