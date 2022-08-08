@@ -19,6 +19,8 @@ public class MovieService {
         return movieRepository.findById(id)
                 .orElseThrow(MovieNotFoundException::new);
     }
+
+    //TODO:mock data
     public Movie save() {
         return movieRepository.save(new Movie(1,"sad","sd",2.0));
     }

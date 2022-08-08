@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -33,6 +34,14 @@ class MovieServiceTest {
         movieLists.add(movie1);
         given(stubMovieRepository.findAll()).willReturn(movieLists);
         List<Movie> result = movieService.findAll();
-
+        assertThat(result, hasSize(1));
+        assertThat(result.get(0), equalTo(movie1));
+    }
+    @Test
+    void getMovieById(){
+        Movie movie1 = new Movie(1,"sad","sd",2.0);
+        given(stubMovieRepository.findById(1)).willReturn(Optional.of(movie1));
+        Movie result = movieService.getMovieById(1);
+        assertThat(result, equalTo(movie1));
     }
 }
