@@ -11,3 +11,4 @@ spring:
       enabled: true # enable h2 web console
   flyway:
     enabled: false
+secret: "JWT_TOKEN"

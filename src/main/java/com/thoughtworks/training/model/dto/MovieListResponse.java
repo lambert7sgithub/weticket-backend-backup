@@ -1,17 +1,15 @@
-package com.thoughtworks.training.entity;
+package com.thoughtworks.training.model.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-public class MovieList {
+public class MovieListResponse {
     private Integer movie_id;
     private String movie_name;
     private String picture;
     private Double score;
 
-    public MovieList(Integer movie_id, String movie_name, String picture, Double score) {
+    public MovieListResponse(Integer movie_id, String movie_name, String picture, Double score) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.picture = picture;
