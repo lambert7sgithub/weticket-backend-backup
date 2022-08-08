@@ -24,3 +24,5 @@ spring:
   thymeleaf:
     mode: HTML
 
+secret: "JWT_TOKEN"
+
