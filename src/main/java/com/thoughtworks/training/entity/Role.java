@@ -1,4 +1,4 @@
-package com.thoughtworks.training.model.entity;
+package com.thoughtworks.training.entity;
 
 
 import lombok.AllArgsConstructor;

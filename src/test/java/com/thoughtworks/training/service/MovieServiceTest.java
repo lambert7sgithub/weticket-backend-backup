@@ -1,7 +1,7 @@
 package com.thoughtworks.training.service;
 
-import com.thoughtworks.training.model.dto.MovieListResponse;
-import com.thoughtworks.training.model.entity.Movie;
+import com.thoughtworks.training.controller.dto.MovieListResponse;
+import com.thoughtworks.training.entity.Movie;
 import com.thoughtworks.training.repository.MovieRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

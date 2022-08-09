@@ -1,6 +1,6 @@
 package com.thoughtworks.training.controller;
 
-import com.thoughtworks.training.model.entity.Movie;
+import com.thoughtworks.training.entity.Movie;
 import com.thoughtworks.training.repository.MovieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

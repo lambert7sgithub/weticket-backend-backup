@@ -1,7 +1,7 @@
 package com.thoughtworks.training.service;
 
-import com.thoughtworks.training.model.entity.Role;
-import com.thoughtworks.training.model.entity.User;
+import com.thoughtworks.training.entity.Role;
+import com.thoughtworks.training.entity.User;
 import com.thoughtworks.training.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,11 +1,11 @@
 package com.thoughtworks.training.service;
 
-import com.thoughtworks.training.model.dto.UserLoginRequest;
-import com.thoughtworks.training.model.dto.UserProfileResponse;
-import com.thoughtworks.training.model.dto.UserSignInRequest;
-import com.thoughtworks.training.model.dto.UserUpdateRequest;
-import com.thoughtworks.training.model.entity.Role;
-import com.thoughtworks.training.model.entity.User;
+import com.thoughtworks.training.controller.dto.UserLoginRequest;
+import com.thoughtworks.training.controller.dto.UserProfileResponse;
+import com.thoughtworks.training.controller.dto.UserSignInRequest;
+import com.thoughtworks.training.controller.dto.UserUpdateRequest;
+import com.thoughtworks.training.entity.Role;
+import com.thoughtworks.training.entity.User;
 import com.thoughtworks.training.repository.RoleRepository;
 import com.thoughtworks.training.repository.UserRepository;
 import com.thoughtworks.training.utils.JwtTokenUtil;
