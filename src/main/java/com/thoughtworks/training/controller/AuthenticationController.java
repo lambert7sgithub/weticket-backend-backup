@@ -9,13 +9,12 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/session")
-public class Authentication {
+public class AuthenticationController {
     @Resource
     private UserService service;
 
     @PostMapping
     public ResponseEntity<Void> login(@RequestBody UserLoginRequest request) {
-        System.out.println(request);
         return service.login(request);
     }
 

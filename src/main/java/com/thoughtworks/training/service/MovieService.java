@@ -24,7 +24,7 @@ public class MovieService {
     public ResponseEntity<List<MovieListResponse>> findList() {
         return new ResponseEntity<>(
                 movieRepository.findAll().stream().map(movie -> {
-                    return new MovieListResponse(movie.getMovie_id(), movie.getMovie_name(), movie.getPicture(), movie.getScore());
+                    return new MovieListResponse(movie.getMovieId(), movie.getMovieName(), movie.getPicture(), movie.getScore());
                 }).collect(Collectors.toList()), HttpStatus.OK
         );
     }
