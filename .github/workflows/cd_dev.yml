@@ -1,9 +1,10 @@
-name: CI_Master
+name: DEV Publish to Heroku Pre
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'dev_*'
+
 
 jobs:
   build:
@@ -24,3 +25,9 @@ jobs:
 
       - name: Execute Gradle Coverage
         run: ./gradlew check
+
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "weticket-backend" #Must be unique in Heroku
+          heroku_email: ${{secrets.EMAIL}}
