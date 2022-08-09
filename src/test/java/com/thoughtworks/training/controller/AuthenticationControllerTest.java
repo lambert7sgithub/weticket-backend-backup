@@ -2,8 +2,8 @@ package com.thoughtworks.training.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.training.model.dto.UserLoginRequest;
-import com.thoughtworks.training.model.dto.UserSignInRequest;
 import com.thoughtworks.training.model.entity.Role;
+import com.thoughtworks.training.model.entity.User;
 import com.thoughtworks.training.repository.RoleRepository;
 import com.thoughtworks.training.repository.UserRepository;
 import com.thoughtworks.training.service.UserService;
@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.annotation.Resource;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Collections;
 
 /**
  * @Author: Lynn
@@ -27,34 +27,42 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-class AuthenticationTest {
+class AuthenticationControllerTest {
     @Autowired
     private MockMvc client;
     @Resource
     private UserService service;
-    @Autowired
+    @Resource
     private RoleRepository roleRepository;
-    @Autowired
+    @Resource
+    private PasswordEncoder passwordEncoder;
+    @Resource
     private UserRepository userRepository;
+
     @BeforeEach
-    void setUp() {
+    void clear() {
         roleRepository.deleteAll();
         userRepository.deleteAll();
     }
+
     @Test
     void login() throws Exception {
-//        System.out.println(roleRepository.findAll());
-//        roleRepository.save(new Role(5,"ROLE_NORMAL"));
-//        System.out.println(roleRepository.findAll());
-//        UserSignInRequest signInRequest = new UserSignInRequest("name","password","kaptcha","email");
-//        service.register(signInRequest);
-//
-//        UserLoginRequest loginRequest = new UserLoginRequest("name","password","kaptcha");
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(signInRequest);
-//        client.perform(MockMvcRequestBuilders.post("/session")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(json))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
+        roleRepository.save(new Role(1, "ROLE_NORMAL"));
+        User user = new User();
+        Role role = new Role();
+        role.setName("ROLE_NORMAL");
+        user.setRoles(Collections.singleton(role));
+        user.setEmail("11@11.111");
+        user.setPassword(passwordEncoder.encode("password"));
+        user.setName("name");
+        user.setUsername("name");
+        userRepository.save(user);
+        UserLoginRequest loginRequest = new UserLoginRequest("name", "password", "captcha");
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(loginRequest);
+        client.perform(MockMvcRequestBuilders.post("/session")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

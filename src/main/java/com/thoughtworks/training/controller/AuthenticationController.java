@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/session")
-public class Authentication {
+public class AuthenticationController {
     @Resource
     private UserService service;
 

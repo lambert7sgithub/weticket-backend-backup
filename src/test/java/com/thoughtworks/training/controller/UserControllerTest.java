@@ -5,6 +5,7 @@ import com.thoughtworks.training.model.dto.UserSignInRequest;
 import com.thoughtworks.training.model.entity.Role;
 import com.thoughtworks.training.repository.RoleRepository;
 import com.thoughtworks.training.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,8 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.annotation.Resource;
 
-import static org.hamcrest.Matchers.hasSize;
-
 /**
  * @Author: Lynn
  * @Date: 2022/8/8 22:54
@@ -28,13 +27,19 @@ class UserControllerTest {
     @Resource
     private UserService service;
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
     private MockMvc client;
+    @Resource
+    private RoleRepository roleRepository;
+
+    @BeforeEach
+    void clear() {
+        roleRepository.deleteAll();
+    }
+
     @Test
-    void should_return_new_user_when_call_register_api_given_user_register_info() throws Exception {
-        roleRepository.save(new Role(1,"ROLE_NORMAL"));
-        UserSignInRequest signInRequest = new UserSignInRequest("name","password","captcha","email");
+    void register() throws Exception {
+        roleRepository.save(new Role(1, "ROLE_NORMAL"));
+        UserSignInRequest signInRequest = new UserSignInRequest("name", "password", "kaptcha", "email");
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(signInRequest);
         client.perform(MockMvcRequestBuilders.post("/user")
@@ -43,11 +48,4 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    @Test
-    void update() {
-    }
-
-    @Test
-    void profile() {
-    }
 }
