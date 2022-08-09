@@ -1,6 +1,6 @@
 package com.thoughtworks.training.controller;
 
-import com.thoughtworks.training.model.dto.UserLoginRequest;
+import com.thoughtworks.training.controller.dto.UserLoginRequest;
 import com.thoughtworks.training.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

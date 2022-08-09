@@ -1,4 +1,4 @@
-package com.thoughtworks.training.model.dto;
+package com.thoughtworks.training.controller.dto;
 
 import lombok.*;
 

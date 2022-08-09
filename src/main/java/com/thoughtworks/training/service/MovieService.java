@@ -1,8 +1,8 @@
 package com.thoughtworks.training.service;
 
 import com.thoughtworks.training.exception.MovieNotFoundException;
-import com.thoughtworks.training.model.dto.MovieListResponse;
-import com.thoughtworks.training.model.entity.Movie;
+import com.thoughtworks.training.controller.dto.MovieListResponse;
+import com.thoughtworks.training.entity.Movie;
 import com.thoughtworks.training.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

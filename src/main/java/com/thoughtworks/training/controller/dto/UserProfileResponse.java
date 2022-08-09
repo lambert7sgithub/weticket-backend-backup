@@ -1,6 +1,6 @@
-package com.thoughtworks.training.model.dto;
+package com.thoughtworks.training.controller.dto;
 
-import com.thoughtworks.training.model.entity.Role;
+import com.thoughtworks.training.entity.Role;
 import lombok.*;
 
 import java.util.Set;

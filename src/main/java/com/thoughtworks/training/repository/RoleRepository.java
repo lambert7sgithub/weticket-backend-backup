@@ -1,6 +1,6 @@
 package com.thoughtworks.training.repository;
 
-import com.thoughtworks.training.model.entity.Role;
+import com.thoughtworks.training.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
