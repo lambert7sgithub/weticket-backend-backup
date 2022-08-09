@@ -1,13 +1,13 @@
 package com.thoughtworks.training.controller;
 
+import com.thoughtworks.training.controller.dto.MovieListResponse;
 import com.thoughtworks.training.entity.Movie;
-import com.thoughtworks.training.entity.MovieList;
 import com.thoughtworks.training.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/movie")
@@ -15,22 +15,24 @@ import java.util.stream.Collectors;
 public class MovieController {
     @Autowired
     private MovieService movieService;
+
     @GetMapping
-    public List<Movie> findAll(){
+    public ResponseEntity<List<Movie>> findAll() {
         return movieService.findAll();
     }
+
     @GetMapping("/list")
-    public List<MovieList> findMovieList(){
-        return movieService.findAll().stream().map(movie -> {
-            return new MovieList(movie.getMovie_id(), movie.getMovie_name(), movie.getPicture(), movie.getScore());
-        }).collect(Collectors.toList());
+    public ResponseEntity<List<MovieListResponse>> findMovieList() {
+        return movieService.findList();
     }
+
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable int id) {
+    public ResponseEntity<Movie> getMovieById(@PathVariable int id) {
         return movieService.getMovieById(id);
     }
+
     @PostMapping
-    public Movie save(){
+    public Movie save() {
         return movieService.save();
     }
 }

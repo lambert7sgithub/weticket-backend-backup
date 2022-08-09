@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/testdb
+    url: jdbc:postgresql://localhost:5432/testdb1
     username: postgres
-    password: 123456
+    password: 216518ww
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
@@ -24,4 +24,6 @@ spring:
 
   thymeleaf:
     mode: HTML
+
 secret: "JWT_TOKEN"
+

@@ -1,40 +1,43 @@
 package com.thoughtworks.training.entity;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 public class Movie {
     @Id
-    private Integer movie_id;
-    private String movie_name;
+    private Integer movieId;
+    private String movieName;
     private String actor;
-    private String directed_by;
+    private String directedBy;
     private String info;
     private String language;
     private String picture;
-    private Date show_time;
+    private Date showTime;
     private Double money;
-    private String movietype;
-    private Boolean is_show;
+    private String movieType;
+    private Boolean isShow;
     private Double score;
     @CreatedDate
-    private Date create_time;
+    private Date createTime;
     @LastModifiedDate
-    private Date update_time;
+    private Date updateTime;
+<<<<<<<< HEAD:src/main/java/com/thoughtworks/training/model/entity/Movie.java
+========
+    private Integer length;
+>>>>>>>> dev:src/main/java/com/thoughtworks/training/entity/Movie.java
 
-    public Movie(Integer movie_id, String movie_name, String picture, Double score) {
-        this.movie_id = movie_id;
-        this.movie_name = movie_name;
+    public Movie(Integer movieId, String movieName, String picture, Double score) {
+        this.movieId = movieId;
+        this.movieName = movieName;
         this.picture = picture;
         this.score = score;
     }
