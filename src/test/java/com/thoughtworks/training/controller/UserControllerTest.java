@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.training.model.dto.UserSignInRequest;
 import com.thoughtworks.training.model.entity.Role;
 import com.thoughtworks.training.repository.RoleRepository;
+import com.thoughtworks.training.repository.UserRepository;
 import com.thoughtworks.training.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +31,12 @@ class UserControllerTest {
     private MockMvc client;
     @Resource
     private RoleRepository roleRepository;
+    @Resource
+    private UserRepository userRepository;
 
     @BeforeEach
     void clear() {
+        userRepository.deleteAll();
         roleRepository.deleteAll();
     }
 
