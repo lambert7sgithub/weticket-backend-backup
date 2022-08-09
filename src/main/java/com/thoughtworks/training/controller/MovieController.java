@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/movie")
+@CrossOrigin
 public class MovieController {
     @Autowired
     private MovieService movieService;
