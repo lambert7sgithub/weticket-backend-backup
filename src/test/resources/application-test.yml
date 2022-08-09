@@ -9,6 +9,7 @@ spring:
   h2:
     console:
       enabled: true # enable h2 web console
+      path: /h2-ui
   flyway:
     enabled: false
 secret: "JWT_TOKEN"
