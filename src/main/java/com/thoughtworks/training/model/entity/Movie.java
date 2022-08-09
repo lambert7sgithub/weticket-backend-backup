@@ -1,14 +1,13 @@
-package com.thoughtworks.training.entity;
+package com.thoughtworks.training.model.entity;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Data

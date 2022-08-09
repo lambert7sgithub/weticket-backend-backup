@@ -13,15 +13,25 @@ repositories {
 }
 
 dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-security"
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.data:spring-data-commons'
 	implementation 'org.flywaydb:flyway-core'
+<<<<<<< HEAD
     implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+=======
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+>>>>>>> 2570ad00b13f23bae90f6f3b6a97a959fe8f180b
 
-    runtimeOnly 'com.h2database:h2'
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
