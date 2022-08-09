@@ -41,8 +41,8 @@ class AuthenticationControllerTest {
 
     @BeforeEach
     void clear() {
-        roleRepository.deleteAll();
         userRepository.deleteAll();
+        roleRepository.deleteAll();
     }
 
     @Test
