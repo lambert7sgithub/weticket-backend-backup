@@ -15,6 +15,6 @@ public class Cinema {
     private String cinemaName;
     private String location;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "screening_id")
+    @JoinColumn(name = "screeningId")
     private List<Screening> screenings;
 }
