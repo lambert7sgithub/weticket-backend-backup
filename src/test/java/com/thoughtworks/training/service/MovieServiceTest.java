@@ -29,7 +29,7 @@ class MovieServiceTest {
 
 
     @Test
-    void findMovieList() {
+    void should_return_all_movie_when_call_find_all_api_given_the_service_is_up() {
         Movie movie1 = new Movie(1, "sad", "sd", 2.0);
         ArrayList<Movie> movieLists = new ArrayList<>();
         movieLists.add(movie1);
@@ -40,18 +40,18 @@ class MovieServiceTest {
     }
 
     @Test
-    void findList() {
+    void should_return_all_movie_list_when_call_find_all_movies_list_api_given_the_service_is_up() {
         Movie movie1 = new Movie(1, "sad", "sd", 2.0);
         ArrayList<Movie> movieLists = new ArrayList<>();
         movieLists.add(movie1);
         given(stubMovieRepository.findAll()).willReturn(movieLists);
         ResponseEntity<List<MovieListResponse>> result = movieService.findList();
         assertThat(result.getBody(), hasSize(1));
-        assertThat(result.getBody().get(0).getMovie_name(), equalTo(movie1.getMovie_name()));
+        assertThat(result.getBody().get(0).getMovieName(), equalTo(movie1.getMovieName()));
     }
 
     @Test
-    void getMovieById() {
+    void should_return_movie_by_id_when_call_get_by_id_given_the_service_is_up() {
         Movie movie1 = new Movie(1, "sad", "sd", 2.0);
         given(stubMovieRepository.findById(1)).willReturn(Optional.of(movie1));
         ResponseEntity<Movie> result = movieService.getMovieById(1);

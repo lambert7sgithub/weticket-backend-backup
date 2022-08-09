@@ -4,14 +4,14 @@ import lombok.Data;
 
 @Data
 public class MovieListResponse {
-    private Integer movie_id;
-    private String movie_name;
+    private Integer movieId;
+    private String movieName;
     private String picture;
     private Double score;
 
-    public MovieListResponse(Integer movie_id, String movie_name, String picture, Double score) {
-        this.movie_id = movie_id;
-        this.movie_name = movie_name;
+    public MovieListResponse(Integer movieId, String movieName, String picture, Double score) {
+        this.movieId = movieId;
+        this.movieName = movieName;
         this.picture = picture;
         this.score = score;
     }
