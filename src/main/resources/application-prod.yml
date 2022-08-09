@@ -12,9 +12,6 @@ spring:
     baseline-on-migrate: true
   jpa:
     hibernate:
-      ddl-auto: update # disable DB schema creation from entity
-
-  thymeleaf:
-    mode: HTML
+      ddl-auto: none # disable DB schema creation from entity
 
 secret: "JWT_TOKEN"
