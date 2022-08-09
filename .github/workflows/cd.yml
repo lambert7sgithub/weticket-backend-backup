@@ -1,9 +1,9 @@
-name: Publish to Heroku
+name: Publish to Heroku Prod
 
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 
 
 jobs:
