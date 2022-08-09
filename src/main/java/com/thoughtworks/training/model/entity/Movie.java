@@ -14,26 +14,26 @@ import java.util.Date;
 @NoArgsConstructor
 public class Movie {
     @Id
-    private Integer movie_id;
-    private String movie_name;
+    private Integer movieId;
+    private String movieName;
     private String actor;
-    private String directed_by;
+    private String directedBy;
     private String info;
     private String language;
     private String picture;
-    private Date show_time;
+    private Date showTime;
     private Double money;
-    private String movie_type;
-    private Boolean is_show;
+    private String movieType;
+    private Boolean isShow;
     private Double score;
     @CreatedDate
-    private Date create_time;
+    private Date createTime;
     @LastModifiedDate
-    private Date update_time;
+    private Date updateTime;
 
-    public Movie(Integer movie_id, String movie_name, String picture, Double score) {
-        this.movie_id = movie_id;
-        this.movie_name = movie_name;
+    public Movie(Integer movieId, String movieName, String picture, Double score) {
+        this.movieId = movieId;
+        this.movieName = movieName;
         this.picture = picture;
         this.score = score;
     }

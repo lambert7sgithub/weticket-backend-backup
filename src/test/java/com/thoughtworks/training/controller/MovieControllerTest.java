@@ -26,34 +26,34 @@ class MovieControllerTest {
     }
 
     @Test
-    void findAll() throws Exception {
+    void should_return_all_movie_when_call_find_all_api_given_the_service_is_up() throws Exception {
         Movie movie = new Movie(1, "test", "https://ts1.cn.mm.bing.net/th/", 3.9);
         movieRepository.save(movie);
         client.perform(MockMvcRequestBuilders.get("/movie"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].movie_name").value("test"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].movieName").value("test"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].score").value(3.9));
     }
 
     @Test
-    void findList() throws Exception {
+    void should_return_all_movie_list_when_call_find_all_movies_list_api_given_the_service_is_up() throws Exception {
         Movie movie = new Movie(1, "test", "https://ts1.cn.mm.bing.net/th/", 3.9);
         movieRepository.save(movie);
         client.perform(MockMvcRequestBuilders.get("/movie/list"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].movie_name").value("test"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].movieName").value("test"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].score").value(3.9));
     }
 
     @Test
-    void getMovieById() throws Exception {
+    void should_return_movie_by_id_when_call_get_by_id_given_the_service_is_up() throws Exception {
         Movie movie = new Movie(1, "test", "https://ts1.cn.mm.bing.net/th/", 3.9);
         Movie saveMovie = movieRepository.save(movie);
-        client.perform(MockMvcRequestBuilders.get("/movie/{id}", saveMovie.getMovie_id()))
+        client.perform(MockMvcRequestBuilders.get("/movie/{id}", saveMovie.getMovieId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.movie_name").value("test"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.movieName").value("test"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.score").value(3.9));
     }
 }
