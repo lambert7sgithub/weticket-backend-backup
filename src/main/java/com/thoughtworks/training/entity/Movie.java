@@ -30,10 +30,7 @@ public class Movie {
     private Date createTime;
     @LastModifiedDate
     private Date updateTime;
-<<<<<<<< HEAD:src/main/java/com/thoughtworks/training/model/entity/Movie.java
-========
     private Integer length;
->>>>>>>> dev:src/main/java/com/thoughtworks/training/entity/Movie.java
 
     public Movie(Integer movieId, String movieName, String picture, Double score) {
         this.movieId = movieId;
