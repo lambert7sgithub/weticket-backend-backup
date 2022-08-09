@@ -42,13 +42,13 @@ public class UserService {
     private JwtTokenUtil tokenUtil;
 
     public ResponseEntity<Void> login(UserLoginRequest request) {
-        System.out.println(request);
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getCredentialId(), request.getCredential()));
         if (authentication.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
             UserDetails details = userDetailService.loadUserByUsername(request.getCredentialId());
             HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, HttpHeaders.AUTHORIZATION);
+            headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization");
             headers.add(HttpHeaders.AUTHORIZATION, tokenUtil.generateJwtToken(details));
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {

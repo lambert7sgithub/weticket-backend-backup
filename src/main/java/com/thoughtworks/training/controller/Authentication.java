@@ -15,7 +15,6 @@ public class Authentication {
 
     @PostMapping
     public ResponseEntity<Void> login(@RequestBody UserLoginRequest request) {
-        System.out.println(request);
         return service.login(request);
     }
 
