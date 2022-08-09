@@ -24,7 +24,7 @@ public class Movie {
     private String picture;
     private Date show_time;
     private Double money;
-    private String movie_type;
+    private String movietype;
     private Boolean is_show;
     private Double score;
     @CreatedDate

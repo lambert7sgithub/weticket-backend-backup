@@ -12,10 +12,11 @@ CREATE TABLE movie (
   movietype varchar(128) NULL,
   is_show boolean NULL DEFAULT false,
   score  numeric(5,2) NULL DEFAULT NULL,
-  create_time date  NULL,
-  update_time date  NULL,
+  create_time date  NULL ,
+  update_time date  NULL ,
   PRIMARY KEY (movie_id)
 ) ;
+
 
 
 
