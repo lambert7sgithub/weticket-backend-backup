@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/testdb1
     username: postgres
-    password: huangyiyue99
+    password: 216518ww
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
