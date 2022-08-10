@@ -24,7 +24,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 @SpringBootApplication
 public class HerokuApplication {
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     SpringApplication.run(HerokuApplication.class, args);
   }
 }
