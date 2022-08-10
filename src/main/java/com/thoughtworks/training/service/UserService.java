@@ -47,8 +47,7 @@ public class UserService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails details = userDetailService.loadUserByUsername(request.getCredentialId());
             HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, HttpHeaders.AUTHORIZATION);
-            headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization");
+            headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION);
             headers.add(HttpHeaders.AUTHORIZATION, tokenUtil.generateJwtToken(details));
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
