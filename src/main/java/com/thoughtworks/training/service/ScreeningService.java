@@ -2,7 +2,9 @@ package com.thoughtworks.training.service;
 
 import com.thoughtworks.training.controller.dto.ScreeningResponse;
 import com.thoughtworks.training.controller.dto.SeatBookingRequest;
+import com.thoughtworks.training.controller.dto.SeatResponse;
 import com.thoughtworks.training.controller.mapper.ScreeningMapper;
+import com.thoughtworks.training.controller.mapper.SeatMapper;
 import com.thoughtworks.training.entity.Screening;
 import com.thoughtworks.training.entity.Seat;
 import com.thoughtworks.training.entity.User;
@@ -11,8 +13,6 @@ import com.thoughtworks.training.repository.ScreeningRepository;
 import com.thoughtworks.training.repository.SeatRepository;
 import com.thoughtworks.training.repository.UserRepository;
 import com.thoughtworks.training.utils.DateUtil;
-import com.thoughtworks.training.utils.JwtTokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,12 +26,10 @@ import java.util.stream.Collectors;
 @Service
 public class ScreeningService {
     DateUtil dateUtil = new DateUtil();
-    @Autowired
-    private ScreeningRepository screeningRepository;
-    @Autowired
-    private ScreeningMapper screeningMapper;
     @Resource
-    private JwtTokenUtil jwtTokenUtil;
+    private ScreeningRepository screeningRepository;
+    @Resource
+    private ScreeningMapper screeningMapper;
     @Resource
     private UserRepository userRepository;
     @Resource
@@ -95,8 +93,8 @@ public class ScreeningService {
         return screeningMapper.toResponse(screenings);
     }
 
-    private static void initScreeningSeat(Screening screening) {
-        if (screening.getSeats().isEmpty()) {
+    private void initScreeningSeat(Screening screening) {
+        if (screening.getSeats() == null || screening.getSeats().isEmpty()) {
             Set<Seat> seats = new HashSet<>();
             for (int i = 0; i < 12; i++) {
                 for (int j = 0; j < 12; j++) {
@@ -104,6 +102,7 @@ public class ScreeningService {
                 }
             }
             screening.setSeats(seats);
+            seatRepository.saveAll(screening.getSeats());
         }
     }
 
@@ -124,8 +123,16 @@ public class ScreeningService {
                 .orElseThrow(() -> new UserException("Screening Not Found"));
         initScreeningSeat(screening);
         booking(request, singleFlag, user, screening);
-        seatRepository.saveAll(screening.getSeats());
         screeningRepository.save(screening);
         return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<List<SeatResponse>> getSeatStatus(Integer screeningId) throws UserException {
+        Screening screening = screeningRepository.findById(screeningId)
+                .orElseThrow(() -> new UserException("Screening Not Found Exception"));
+        initScreeningSeat(screening);
+        screeningRepository.save(screening);
+
+        return new ResponseEntity<>(SeatMapper.toResponses(screening.getSeats()), HttpStatus.OK);
     }
 }

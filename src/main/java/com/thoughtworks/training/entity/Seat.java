@@ -23,7 +23,7 @@ public class Seat {
 
     private Integer y;
 
-    @OneToOne
+    @ManyToOne
     @JoinTable(name = "t_user_seat",
             joinColumns = @JoinColumn(name = "seat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))

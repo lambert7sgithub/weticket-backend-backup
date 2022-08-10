@@ -1,6 +1,9 @@
 package com.thoughtworks.training.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -23,6 +26,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private Set<Seat> seats;
 
     @Override
     public boolean equals(Object o) {

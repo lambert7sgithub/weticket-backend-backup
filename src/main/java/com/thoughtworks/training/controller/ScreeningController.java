@@ -2,6 +2,7 @@ package com.thoughtworks.training.controller;
 
 import com.thoughtworks.training.controller.dto.ScreeningResponse;
 import com.thoughtworks.training.controller.dto.SeatBookingRequest;
+import com.thoughtworks.training.controller.dto.SeatResponse;
 import com.thoughtworks.training.exception.UserException;
 import com.thoughtworks.training.service.ScreeningService;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,13 @@ public class ScreeningController {
             Principal principal
     ) throws UserException {
         return screeningService.bookingSeats(screeningId, request, principal);
+    }
+
+    @GetMapping("/{screeningId}")
+    public ResponseEntity<List<SeatResponse>> bookingSeat(
+            @PathVariable Integer screeningId
+    ) throws UserException {
+        return screeningService.getSeatStatus(screeningId);
     }
 
 }
