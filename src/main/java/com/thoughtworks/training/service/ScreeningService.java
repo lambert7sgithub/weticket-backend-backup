@@ -13,15 +13,14 @@ import com.thoughtworks.training.repository.ScreeningRepository;
 import com.thoughtworks.training.repository.SeatRepository;
 import com.thoughtworks.training.repository.UserRepository;
 import com.thoughtworks.training.utils.DateUtil;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.text.ParseException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ScreeningService {
@@ -56,40 +55,18 @@ public class ScreeningService {
         }
     }
 
+    @SneakyThrows
     public List<ScreeningResponse> findAllScreenings(Date dateTime, Integer cinemaId, Integer movieId) {
-        List<Screening> screenings = screeningRepository.findAll()
-                .stream()
-                .filter(screening -> {
-                    try {
-                        return (Objects.equals(screening.getCinema().getCinemaId(), cinemaId))
-                                && (screening.getStartDateTime().after(dateTime))
-                                && (screening.getStartDateTime().before(dateUtil.getFutureDate(1, dateTime)))
-                                && (Objects.equals(screening.getMovie().getMovieId(), movieId));
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                )
-                .collect(Collectors.toList());
+        List<Screening> screenings = screeningRepository.findScreeningsByMovie_MovieIdAndCinema_CinemaIdAndStartDateTimeBeforeAndStartDateTimeAfter(movieId, cinemaId, dateUtil.getFutureDate(1, dateTime), dateTime);
+        screenings.sort(Comparator.comparing(Screening::getStartDateTime));
         return screeningMapper.toResponse(screenings);
     }
 
+    @SneakyThrows
     public List<ScreeningResponse> findAllScreenings(Integer cinemaId, Integer movieId) {
         Date date = new Date();
-        List<Screening> screenings = screeningRepository.findAll()
-                .stream()
-                .filter(screening -> {
-                            try {
-                                return (Objects.equals(screening.getCinema().getCinemaId(), cinemaId))
-                                        && (screening.getStartDateTime().after(date))
-                                        && (screening.getStartDateTime().before(dateUtil.getFutureDate(1, date)))
-                                        && (Objects.equals(screening.getMovie().getMovieId(), movieId));
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                )
-                .collect(Collectors.toList());
+        List<Screening> screenings = screeningRepository.findScreeningsByMovie_MovieIdAndCinema_CinemaIdAndStartDateTimeBeforeAndStartDateTimeAfter(movieId, cinemaId, dateUtil.getFutureDate(1, date), date);
+        screenings.sort(Comparator.comparing(Screening::getStartDateTime));
         return screeningMapper.toResponse(screenings);
     }
 
