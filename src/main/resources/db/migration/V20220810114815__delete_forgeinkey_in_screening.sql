@@ -1,1 +1,1 @@
-alter table  screening drop constraint  fk752is8e9p6485f9apj2hrq5pb;
+ALTER TABLE  screening DROP CONSTRAINT  fk752is8e9p6485f9apj2hrq5pb;
