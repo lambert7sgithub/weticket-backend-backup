@@ -17,6 +17,7 @@ public class Screening {
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
     @JsonFormat()
+    @Column(name = "start_date")
     private Date startDateTime;
     //座位总数
     private int seatNum;
