@@ -6,4 +6,5 @@ import lombok.Data;
 public class CinemaResponse {
     private int cinemaId;
     private String cinemaName;
+    private String location;
 }
