@@ -56,14 +56,14 @@ public class ScreeningService {
     }
 
     @SneakyThrows
-    public List<ScreeningResponse> findAllScreenings(Date dateTime, Integer cinemaId, Integer movieId) {
+    public List<ScreeningResponse> findScreeningsByDateCinemaMovie(Date dateTime, Integer cinemaId, Integer movieId) {
         List<Screening> screenings = screeningRepository.findScreeningsByMovie_MovieIdAndCinema_CinemaIdAndStartDateTimeBeforeAndStartDateTimeAfter(movieId, cinemaId, dateUtil.getFutureDate(1, dateTime), dateTime);
         screenings.sort(Comparator.comparing(Screening::getStartDateTime));
         return screeningMapper.toResponse(screenings);
     }
 
     @SneakyThrows
-    public List<ScreeningResponse> findAllScreenings(Integer cinemaId, Integer movieId) {
+    public List<ScreeningResponse> findScreeningsByDateCinemaMovie(Integer cinemaId, Integer movieId) {
         Date date = new Date();
         List<Screening> screenings = screeningRepository.findScreeningsByMovie_MovieIdAndCinema_CinemaIdAndStartDateTimeBeforeAndStartDateTimeAfter(movieId, cinemaId, dateUtil.getFutureDate(1, date), date);
         screenings.sort(Comparator.comparing(Screening::getStartDateTime));

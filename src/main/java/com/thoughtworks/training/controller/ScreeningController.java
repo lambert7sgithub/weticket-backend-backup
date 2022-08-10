@@ -27,13 +27,13 @@ public class ScreeningController {
                                                            @PathVariable("movieId") Integer movieid) throws ParseException {
 
         Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
-        return screeningService.findAllScreenings(date, cinemaid, movieid);
+        return screeningService.findScreeningsByDateCinemaMovie(date, cinemaid, movieid);
     }
 
     @GetMapping("/cinema/{cinemaId}/movie/{movieId}")
     public List<ScreeningResponse> findDateScreening(@PathVariable("cinemaId") Integer cinemaid,
                                                      @PathVariable("movieId") Integer movieid) {
-        return screeningService.findAllScreenings(cinemaid, movieid);
+        return screeningService.findScreeningsByDateCinemaMovie(cinemaid, movieid);
     }
 
     @PostMapping("/{screeningId}")
