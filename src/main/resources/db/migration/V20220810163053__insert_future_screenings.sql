@@ -1,0 +1,10 @@
+insert into screening(screening_id,cinema_id,movie_id,seat_num,start_date,surplus_seats)
+    values (51,3,1,120,'2022-08-10 23:23:54',120);
+insert into screening(screening_id,cinema_id,movie_id,seat_num,start_date,surplus_seats)
+    values (61,3,1,120,'2022-08-10 23:23:54',120);
+insert into screening(screening_id,cinema_id,movie_id,seat_num,start_date,surplus_seats)
+    values (77,3,1,120,'2022-08-10 23:23:54',120);
+insert into screening(screening_id,cinema_id,movie_id,seat_num,start_date,surplus_seats)
+    values (31,3,1,120,'2022-08-11 12:23:54',120);
+insert into screening(screening_id,cinema_id,movie_id,seat_num,start_date,surplus_seats)
+    values (41,3,1,120,'2022-08-11 11:23:54',120);

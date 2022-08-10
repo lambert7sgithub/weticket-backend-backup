@@ -45,7 +45,10 @@ public class UserService {
 
     public ResponseEntity<Void> login(UserLoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getCredentialId(), request.getCredential())
+                new UsernamePasswordAuthenticationToken(
+                        request.getCredentialId(),
+                        request.getCredential()
+                )
         );
         if (authentication.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authentication);

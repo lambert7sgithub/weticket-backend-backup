@@ -1,20 +1,24 @@
 package com.thoughtworks.training.entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Cinema {
     @Id
-    private int cinemaId;
+    private Integer cinemaId;
     private String cinemaName;
     private String location;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "screeningId")
+    @JsonIgnoreProperties(value = "cinema")
     private List<Screening> screenings;
 }
