@@ -1,11 +1,14 @@
 package com.thoughtworks.training.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class OrderResponse {
 

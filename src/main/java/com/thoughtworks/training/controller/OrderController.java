@@ -1,9 +1,10 @@
 package com.thoughtworks.training.controller;
 
-import com.thoughtworks.training.entity.Order;
 import com.thoughtworks.training.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -14,9 +15,10 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/{orderId}")
-    public Order findMessageByOrderId(@PathVariable String orderId){
+    public Map<String, Object> findMessageByOrderId(@PathVariable String orderId){
+       return  orderService.findMessageByOrderId(orderId);
 
-        return orderService.findMessageByOrderId(orderId);
+
     }
 
 }
