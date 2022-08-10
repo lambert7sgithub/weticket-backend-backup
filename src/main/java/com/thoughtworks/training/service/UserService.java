@@ -42,7 +42,12 @@ public class UserService {
     private JwtTokenUtil tokenUtil;
 
     public ResponseEntity<Void> login(UserLoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getCredentialId(), request.getCredential()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getCredentialId(),
+                        request.getCredential()
+                )
+        );
         if (authentication.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails details = userDetailService.loadUserByUsername(request.getCredentialId());
