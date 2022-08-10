@@ -1,13 +1,14 @@
 package com.thoughtworks.training.controller;
 
 import com.thoughtworks.training.controller.dto.ScreeningResponse;
+import com.thoughtworks.training.controller.dto.SeatBookingRequest;
+import com.thoughtworks.training.exception.UserException;
 import com.thoughtworks.training.service.ScreeningService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/screenings")
 public class ScreeningController {
-    @Autowired
+    @Resource
     private ScreeningService screeningService;
 
     @GetMapping("/cinema/{cinemaId}/movie/{movieId}/{date}")
@@ -32,6 +33,15 @@ public class ScreeningController {
     public List<ScreeningResponse> findDateScreening(@PathVariable("cinemaId") Integer cinemaid,
                                                      @PathVariable("movieId") Integer movieid) {
         return screeningService.findAllScreenings(cinemaid, movieid);
+    }
+
+    @PostMapping("/{screeningId}")
+    public ResponseEntity<Void> bookingSeat(
+            @PathVariable Integer screeningId,
+            @RequestBody SeatBookingRequest request,
+            Principal principal
+    ) throws UserException {
+        return screeningService.bookingSeats(screeningId, request, principal);
     }
 
 }
