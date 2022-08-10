@@ -1,12 +1,10 @@
 package com.thoughtworks.training.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,11 +16,12 @@ public class Screening {
     @ManyToOne
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
-    private Date startDate;
+    @JsonFormat()
+    private Date startDateTime;
     //座位总数
     private int seatNum;
     private int surplusSeats;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
 }

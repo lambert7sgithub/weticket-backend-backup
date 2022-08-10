@@ -21,11 +21,11 @@ public class ScreeningService {
     private ScreeningMapper screeningMapper;
 
 
-    public List<ScreeningResponse> findAllScreenings(Date date, Integer cinemaId, Integer movieId) {
+    public List<ScreeningResponse> findAllScreenings(Date dateTime, Integer cinemaId, Integer movieId) {
         List<Screening> screenings = screeningRepository.findAll()
                 .stream()
                 .filter(screening -> (screening.getCinema().getCinemaId() == cinemaId)
-                        && (screening.getStartDate().after(date))
+                        && (screening.getStartDateTime().after(dateTime))
                         && (Objects.equals(screening.getMovie().getMovieId(), movieId))
                 )
                 .collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class ScreeningService {
         List<Screening> screenings = screeningRepository.findAll()
                 .stream()
                 .filter(screening -> (screening.getCinema().getCinemaId() == cinemaId)
-                        && (screening.getStartDate().after(date))
+                        && (screening.getStartDateTime().after(date))
                         && (Objects.equals(screening.getMovie().getMovieId(), movieId))
                 )
                 .collect(Collectors.toList());
