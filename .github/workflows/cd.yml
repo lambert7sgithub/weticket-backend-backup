@@ -1,4 +1,4 @@
-name: Publish to Heroku Prod
+name: Publish To Prod
 
 on:
   push:
