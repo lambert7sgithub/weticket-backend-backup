@@ -1,5 +1,6 @@
 package com.thoughtworks.training.service;
 
+import com.thoughtworks.training.controller.dto.MovieDetailResponse;
 import com.thoughtworks.training.controller.dto.ScreeningResponse;
 import com.thoughtworks.training.controller.dto.SeatBookingRequest;
 import com.thoughtworks.training.controller.dto.SeatResponse;
@@ -140,5 +141,18 @@ public class ScreeningService {
         screeningRepository.save(screening);
 
         return new ResponseEntity<>(SeatMapper.toResponses(screening.getSeats()), HttpStatus.OK);
+    }
+
+    public ResponseEntity<MovieDetailResponse> getMovieDetail(Integer screeningId) throws Exception {
+        MovieDetailResponse response = new MovieDetailResponse();
+        Screening screening = screeningRepository.findById(screeningId).orElseThrow(() -> new SeatException("Screening Not Found"));
+        response.setCinema(screening.getCinema().getCinemaName());
+        response.setMovieLang(screening.getMovie().getLanguage());
+        response.setDate(screening.getStartDateTime());
+        response.setPrice(screening.getMovie().getMoney());
+        response.setPicture(screening.getMovie().getPicture());
+        response.setMovieName(screening.getMovie().getMovieName());
+        response.setScreeningRoom(screening.getCinema().getCinemaName() + screening.getScreeningId());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
