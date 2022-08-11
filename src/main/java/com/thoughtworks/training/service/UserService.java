@@ -6,6 +6,8 @@ import com.thoughtworks.training.controller.dto.UserSignInRequest;
 import com.thoughtworks.training.controller.dto.UserUpdateRequest;
 import com.thoughtworks.training.entity.Role;
 import com.thoughtworks.training.entity.User;
+import com.thoughtworks.training.exception.RoleException;
+import com.thoughtworks.training.exception.UserException;
 import com.thoughtworks.training.repository.RoleRepository;
 import com.thoughtworks.training.repository.UserRepository;
 import com.thoughtworks.training.utils.JwtTokenUtil;
@@ -42,13 +44,17 @@ public class UserService {
     private JwtTokenUtil tokenUtil;
 
     public ResponseEntity<Void> login(UserLoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getCredentialId(), request.getCredential()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getCredentialId(),
+                        request.getCredential()
+                )
+        );
         if (authentication.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails details = userDetailService.loadUserByUsername(request.getCredentialId());
             HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, HttpHeaders.AUTHORIZATION);
-            headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization");
+            headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION);
             headers.add(HttpHeaders.AUTHORIZATION, tokenUtil.generateJwtToken(details));
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
@@ -56,8 +62,8 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<Void> register(UserSignInRequest request) {
-        Role role = roleRepository.findByName("ROLE_NORMAL").get();
+    public ResponseEntity<Void> register(UserSignInRequest request) throws RoleException {
+        Role role = roleRepository.findByName("ROLE_NORMAL").orElseThrow(() -> new RoleException("Role not found"));
         if (repository.existsByEmail(request.getEmail())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
@@ -76,8 +82,8 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> update(String id, UserUpdateRequest request) {
-        User user = repository.findById(Long.parseLong(id)).get();
+    public ResponseEntity<Void> update(String id, UserUpdateRequest request) throws UserException {
+        User user = repository.findById(Long.parseLong(id)).orElseThrow(() -> new UserException("User Not Found"));
         if (!request.getName().isEmpty()) {
             user.setName(request.getName());
         }
@@ -91,8 +97,8 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<UserProfileResponse> profile(String id) {
-        User user = repository.findById(Long.parseLong(id)).get();
+    public ResponseEntity<UserProfileResponse> profile(String id) throws UserException {
+        User user = repository.findById(Long.parseLong(id)).orElseThrow(() -> new UserException("User Not Found"));
         UserProfileResponse response = new UserProfileResponse();
         response.setUsername(user.getUsername());
         response.setEmail(user.getEmail());

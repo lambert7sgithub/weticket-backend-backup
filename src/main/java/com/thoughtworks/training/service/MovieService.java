@@ -1,8 +1,8 @@
 package com.thoughtworks.training.service;
 
-import com.thoughtworks.training.exception.MovieNotFoundException;
 import com.thoughtworks.training.controller.dto.MovieListResponse;
 import com.thoughtworks.training.entity.Movie;
+import com.thoughtworks.training.exception.MovieNotFoundException;
 import com.thoughtworks.training.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,16 @@ public class MovieService {
 
     public ResponseEntity<List<MovieListResponse>> findList() {
         return new ResponseEntity<>(
-                movieRepository.findAll().stream().map(movie -> {
-                    return new MovieListResponse(movie.getMovieId(), movie.getMovieName(), movie.getPicture(), movie.getScore());
-                }).collect(Collectors.toList()), HttpStatus.OK
+                movieRepository
+                        .findAll()
+                        .stream()
+                        .map(
+                                movie -> new MovieListResponse(
+                                        movie.getMovieId(),
+                                        movie.getMovieName(),
+                                        movie.getPicture(),
+                                        movie.getScore())
+                        ).collect(Collectors.toList()), HttpStatus.OK
         );
     }
 

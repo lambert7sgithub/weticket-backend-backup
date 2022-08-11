@@ -2,6 +2,7 @@ package com.thoughtworks.training.filter;
 
 import com.thoughtworks.training.service.UsernamePasswordUserDetailService;
 import com.thoughtworks.training.utils.JwtTokenUtil;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String token = request.getHeader("Authentication");
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (token != null && !token.isEmpty()) {
             String username = jwtTokenUtil.getUsernameFromToken(token);
             if (!username.isEmpty()) {
