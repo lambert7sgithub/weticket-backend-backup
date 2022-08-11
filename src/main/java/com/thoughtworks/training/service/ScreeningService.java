@@ -35,22 +35,28 @@ public class ScreeningService {
     @Resource
     private SeatRepository seatRepository;
 
+    private static final Integer UNBOOKED = 0;
+    private static final Integer SINGLE_BOOKING = 1;
+    private static final Integer MULTIPLE_BOOKING = 2;
+    private static final Integer UNWILLING_PAIR = 3;
+
+
     private static void booking(SeatBookingRequest request, int singleFlag, User user, Screening screening)
             throws Exception {
         for (ArrayList<Integer> booking : request.getBookings()) {
             Seat res = screening.getSeats().stream().filter(
                     seat -> seat.getX().equals(booking.get(0)) && seat.getY().equals(booking.get(1))
             ).findFirst().orElseThrow(() -> new SeatException("Seat Not Found"));
-            if (res.getStatus() != 0) {
+            if (!res.getStatus().equals(UNBOOKED)) {
                 throw new SeatException("Seat Occupied");
             } else {
-                if (singleFlag == 1) {
-                    res.setStatus(1);
+                if (singleFlag == SINGLE_BOOKING) {
+                    res.setStatus(SINGLE_BOOKING);
                 } else {
-                    res.setStatus(2);
+                    res.setStatus(MULTIPLE_BOOKING);
                 }
-                if (!request.getWillingPair()) {
-                    res.setStatus(3);
+                if (Boolean.FALSE.equals(request.getWillingPair())) {
+                    res.setStatus(UNWILLING_PAIR);
                 }
                 res.setUser(user);
                 screening.getSeats().add(res);
