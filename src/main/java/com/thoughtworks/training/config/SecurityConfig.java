@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -60,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/screenings/**")
+                .antMatchers(HttpMethod.GET, "/screenings/**", "/food-orders")
                 .permitAll()
                 .antMatchers(
                         "/user",
@@ -72,8 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/movie/**",
                         "/cinemas",
                         "/dates",
-                        "/foods/**",
-                        "/food-orders"
+                        "/foods/**"
                 )
                 .permitAll()
                 .anyRequest().authenticated()
