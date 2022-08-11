@@ -22,7 +22,7 @@ public class ScreeningMapper {
         screeningResponse.setStartDate(dateUtil.getDateString(screening.getStartDateTime()));
         screeningResponse.setEndTime(dateUtil.getDateString(dateUtil.addMinutes(screening.getStartDateTime(), screening.getMovie().getLength())));
         screeningResponse.setAuditoriumId(1);
-        screeningResponse.setAuditoriumName("暂无");
+        screeningResponse.setAuditoriumName("放映厅1号");
         return screeningResponse;
     }
 
