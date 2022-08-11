@@ -17,6 +17,8 @@ public class FoodOrder {
     @Id
     @Column(name = "food_order_id")
     private String id;
+    @Column(name = "food_id")
+    private Integer foodId;
     @Column(name = "food_name")
     private String foodName;
     @Column(name = "user_id")
