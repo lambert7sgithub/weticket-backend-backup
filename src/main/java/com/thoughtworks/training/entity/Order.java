@@ -16,7 +16,6 @@ import java.util.Date;
 @Table(name = "orderform")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
     private String orderId;
     @Column(name = "movie_id")
