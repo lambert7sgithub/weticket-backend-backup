@@ -49,7 +49,7 @@ public class FoodOrderService {
         foodOrder.setCreateTime(new Date());
         foodOrder.setIsUsed(false);
 
-        Food food = foodRepository.getOne(foodId);
+        Food food = foodRepository.findById(foodId).orElseThrow(() -> new UserException("Food Not Found"));
         int inventory = food.getInventory() - 1;
         food.setInventory(inventory);
         foodRepository.save(food);
