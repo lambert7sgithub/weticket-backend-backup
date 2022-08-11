@@ -12,7 +12,7 @@ public class ScreeningResponse {
     private String auditoriumName;
     private String startDate;
     private String endTime;
-    private double seatSituation;
+    private String seatSituation = "充足";
     private String language;
     private double moviePrice;
 }
