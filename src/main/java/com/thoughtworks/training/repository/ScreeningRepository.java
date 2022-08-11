@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ScreeningRepository extends JpaRepository<Screening, Integer> {
     List<Screening> findScreeningsByMovie_MovieIdAndCinema_CinemaIdAndStartDateTimeBeforeAndStartDateTimeAfter(Integer movieId, Integer cinemaId, Date futureDate, Date nowDate);
+
 }

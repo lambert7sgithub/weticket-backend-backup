@@ -1,5 +1,6 @@
 package com.thoughtworks.training.controller;
 
+import com.thoughtworks.training.controller.dto.MovieDetailResponse;
 import com.thoughtworks.training.controller.dto.ScreeningResponse;
 import com.thoughtworks.training.controller.dto.SeatBookingRequest;
 import com.thoughtworks.training.controller.dto.SeatResponse;
@@ -45,10 +46,15 @@ public class ScreeningController {
     }
 
     @GetMapping("/{screeningId}")
-    public ResponseEntity<List<SeatResponse>> bookingSeat(
+    public ResponseEntity<List<SeatResponse>> getSeatStatus(
             @PathVariable Integer screeningId
     ) throws Exception {
         return screeningService.getSeatStatus(screeningId);
+    }
+
+    @GetMapping("/{screeningId}/detail")
+    public ResponseEntity<MovieDetailResponse> getMovieDetail(@PathVariable Integer screeningId) throws Exception {
+        return screeningService.getMovieDetail(screeningId);
     }
 
 }

@@ -62,7 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/movie",
                         "/movie/**",
                         "/cinemas",
-                        "/dates"
+                        "/dates",
+                        "/foods/**",
+                        "/food-orders"
                 )
                 .permitAll()
                 .anyRequest().authenticated()
