@@ -13,7 +13,7 @@ public class FoodService {
     FoodRepository foodRepository;
 
     public Page<Food> findAllFoodByPage(PageRequest pageRequest) {
-        return foodRepository.findAll(pageRequest);
+        return foodRepository.getByOrderById(pageRequest);
     }
 
 }
