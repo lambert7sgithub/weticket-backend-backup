@@ -6,6 +6,7 @@ import com.thoughtworks.training.controller.mapper.FoodOrderMapper;
 import com.thoughtworks.training.exception.UserException;
 import com.thoughtworks.training.service.FoodOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -28,7 +29,7 @@ public class FoodOrderController {
     }
 
     @PostMapping
-    @ResponseStatus
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public FoodOrderResponse postBuyAFood(@RequestBody FoodOrderRequest foodOrderRequest, Principal principal) throws UserException {
         return foodOrderMapper.toResponse(foodOrderService.insert(foodOrderMapper.toEntity(foodOrderRequest),principal));
     }
