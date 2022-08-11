@@ -5,11 +5,13 @@ import com.thoughtworks.training.controller.dto.SeatBookingRequest;
 import com.thoughtworks.training.controller.dto.SeatResponse;
 import com.thoughtworks.training.controller.mapper.ScreeningMapper;
 import com.thoughtworks.training.controller.mapper.SeatMapper;
+import com.thoughtworks.training.entity.Order;
 import com.thoughtworks.training.entity.Screening;
 import com.thoughtworks.training.entity.Seat;
 import com.thoughtworks.training.entity.User;
 import com.thoughtworks.training.exception.SeatException;
 import com.thoughtworks.training.exception.UserException;
+import com.thoughtworks.training.repository.OrderRepository;
 import com.thoughtworks.training.repository.ScreeningRepository;
 import com.thoughtworks.training.repository.SeatRepository;
 import com.thoughtworks.training.repository.UserRepository;
@@ -20,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.*;
 
@@ -34,6 +37,9 @@ public class ScreeningService {
     private UserRepository userRepository;
     @Resource
     private SeatRepository seatRepository;
+
+    @Resource
+    private OrderRepository orderRepository;
 
     private static final Integer UNBOOKED = 0;
     private static final Integer SINGLE_BOOKING = 1;
@@ -92,6 +98,7 @@ public class ScreeningService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Void> bookingSeats(Integer screeningId, SeatBookingRequest request, Principal principal)
             throws Exception {
         int singleFlag;
@@ -108,8 +115,22 @@ public class ScreeningService {
                 .orElseThrow(() -> new SeatException("Screening Not Found"));
         initScreeningSeat(screening);
         booking(request, singleFlag, user, screening);
+        order(screeningId, request, user, screening);
         screeningRepository.save(screening);
         return ResponseEntity.ok().build();
+    }
+
+    private void order(Integer screeningId, SeatBookingRequest request, User user, Screening screening) {
+        Order order = new Order();
+        order.setOrderId(String.valueOf(UUID.randomUUID().getMostSignificantBits()));
+        order.setScreeningId(screeningId);
+        order.setCinemaId(screening.getScreeningId());
+        order.setIsUsed(false);
+        order.setUserId(user.getId());
+        order.setMovieId(screening.getMovie().getMovieId());
+        order.setCreateTime(new Date());
+        order.setVotes(request.getBookings().size());
+        orderRepository.save(order);
     }
 
     public ResponseEntity<List<SeatResponse>> getSeatStatus(Integer screeningId) throws Exception {
