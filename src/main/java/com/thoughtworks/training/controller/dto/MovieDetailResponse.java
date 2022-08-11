@@ -19,4 +19,5 @@ public class MovieDetailResponse {
     private Double price;
     private String movieLang;
     private String picture;
+    private Integer movieLength;
 }

@@ -26,10 +26,11 @@ public class FoodOrderService {
     @Resource
     private UserRepository userRepository;
 
-    public List<Map<String, Object>> findAllFoodOrdersByUserId(Principal principal, Integer id) throws Exception {
+    public List<Map<String, Object>> findAllFoodOrdersByUserId( long id,Principal principal) throws Exception {
         User user = userRepository.findByUsernameOrEmail(principal.getName(), principal.getName()).orElseThrow(() -> new UserException("User Not Found"));
         long userId = user.getId();
-        List<Map<String, Object>> mapList = foodOrderRepository.findFoodOrdersByUserId(userId);
+        List<Map<String, Object>> mapList= foodOrderRepository.findFoodOrdersByUserId(userId);
+
         return mapList;
 
     }

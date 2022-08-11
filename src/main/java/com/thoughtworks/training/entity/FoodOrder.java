@@ -1,9 +1,9 @@
 package com.thoughtworks.training.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,6 +29,6 @@ public class FoodOrder {
     private Double totalPrice;
     @Column(name = "price")
     private Double price;
-    @CreatedDate
+    @JsonFormat()
     private Date createTime;
 }

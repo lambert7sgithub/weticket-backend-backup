@@ -9,12 +9,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
 
@@ -48,10 +51,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", configuration);
         httpSecurity
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/screenings/**")
+                .antMatchers(HttpMethod.GET, "/screenings/**", "/food-orders")
                 .permitAll()
                 .antMatchers(
                         "/user",
@@ -63,13 +73,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/movie/**",
                         "/cinemas",
                         "/dates",
-                        "/foods/**",
-                        "/food-orders"
+                        "/foods/**"
                 )
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
+                .cors().configurationSource(urlBasedCorsConfigurationSource)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -82,13 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Override
 //    public void configure(HttpSecurity httpSecurity) throws Exception {
-//        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setAllowCredentials(true);
-//        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", configuration);
-//        httpSecurity.antMatcher("/**").csrf().disable().cors().configurationSource(urlBasedCorsConfigurationSource);
+//
+//        httpSecurity.antMatcher("/**").csrf().disable()
 //    }
 }
