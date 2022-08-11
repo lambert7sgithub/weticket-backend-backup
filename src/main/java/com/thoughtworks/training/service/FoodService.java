@@ -15,4 +15,5 @@ public class FoodService {
     public Page<Food> findAllFoodByPage(PageRequest pageRequest) {
         return foodRepository.findAll(pageRequest);
     }
+
 }
