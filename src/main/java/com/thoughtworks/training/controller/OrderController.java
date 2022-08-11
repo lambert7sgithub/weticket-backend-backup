@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,20 +20,9 @@ public class OrderController {
     @GetMapping("/{orderId}")
     public Map<String, Object> findMessageByOrderId(@PathVariable String orderId){
        return  orderService.findMessageByOrderId(orderId);
-
-
     }
-
-
-
-
-
-
-
-
-
-    @GetMapping("/user/{user_id}")
-    public Map<String, Object> findOrdersByUserId(@PathVariable Integer userId, Principal principal) throws UserException {
+    @GetMapping("/user/{userId}")
+    public List<Map<String, Object>> findOrdersByUserId(@PathVariable Integer userId, Principal principal) throws UserException {
         return  orderService.findOrdersByUserId(userId, principal);
 
     }

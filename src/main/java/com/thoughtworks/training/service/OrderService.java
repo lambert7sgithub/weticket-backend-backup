@@ -26,24 +26,10 @@ public class OrderService {
         return messageByOrderId.get(0);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Map<String, Object> findOrdersByUserId(Integer userId, Principal principal) throws UserException {
+    public List<Map<String, Object>> findOrdersByUserId(Integer userId, Principal principal) throws UserException {
         User user = userRepository.findByUsernameOrEmail(principal.getName(), principal.getName()).orElseThrow(() -> new UserException("User Not Found"));
         long id = user.getId();
-        List<Map<String, Object>> messageByOrderId = orderRepository.findOrdersByUserId((int) id);
-        Map<String, Object> map = messageByOrderId.get(0);
-        return messageByOrderId.get(0);
+        List<Map<String, Object>> messageOrders = orderRepository.findOrdersByUserId((int)id);
+        return messageOrders;
     }
 }
