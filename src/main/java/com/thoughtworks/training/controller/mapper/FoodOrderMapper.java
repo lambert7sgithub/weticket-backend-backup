@@ -1,4 +1,5 @@
 package com.thoughtworks.training.controller.mapper;
+import com.thoughtworks.training.controller.dto.FoodOrderRequest;
 import com.thoughtworks.training.controller.dto.FoodOrderResponse;
 import com.thoughtworks.training.entity.FoodOrder;
 import com.thoughtworks.training.utils.DateUtil;
@@ -24,5 +25,11 @@ public class FoodOrderMapper {
         return foodOrders.stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public FoodOrder toEntity(FoodOrderRequest foodOrderRequest){
+        FoodOrder foodOrder = new FoodOrder();
+        BeanUtils.copyProperties(foodOrderRequest, foodOrder);
+        return foodOrder;
     }
 }
