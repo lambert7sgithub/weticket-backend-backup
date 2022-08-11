@@ -29,7 +29,7 @@ public class OrderService {
     public List<Map<String, Object>> findOrdersByUserId(Integer userId, Principal principal) throws UserException {
         User user = userRepository.findByUsernameOrEmail(principal.getName(), principal.getName()).orElseThrow(() -> new UserException("User Not Found"));
         long id = user.getId();
-        List<Map<String, Object>> messageOrders = orderRepository.findOrdersByUserId((int)id);
+        List<Map<String, Object>> messageOrders = orderRepository.findOrdersByUserId(id);
         return messageOrders;
     }
 }

@@ -18,5 +18,5 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
     List<Map<String,Object>> findMessageByOrderId(String orderId);
 
     @Query(nativeQuery = true,value="select o.order_id as orderId,m.movie_name as movieName,m.picture as imageUrl,m.language as language,c.cinema_name as cinemaName,o.votes as votes,m.money*o.votes as allPrice,s.start_date as startDate from orderform o join movie m on m.movie_id=o.movie_id join cinema c on c.cinema_id=o.cinema_id join screening s on s.screening_id=o.screening_id where 1=1 and o.user_id =:userId")
-    List<Map<String, Object>> findOrdersByUserId(Integer userId);
+    List<Map<String, Object>> findOrdersByUserId(long userId);
 }
