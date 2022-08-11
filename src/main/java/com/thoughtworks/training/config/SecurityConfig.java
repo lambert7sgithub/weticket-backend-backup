@@ -50,13 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", configuration);
         httpSecurity
                 .csrf().disable()
                 .authorizeRequests()
@@ -82,20 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
-                .cors().configurationSource(urlBasedCorsConfigurationSource)
-                .and()
+                .cors()
+                .disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
-//    @Override
-//    public void configure(WebSecurity webSecurity) {
-//        webSecurity.ignoring().antMatchers("/**");
-//    }
-
-//    @Override
-//    public void configure(HttpSecurity httpSecurity) throws Exception {
-//
-//        httpSecurity.antMatcher("/**").csrf().disable()
-//    }
 }
