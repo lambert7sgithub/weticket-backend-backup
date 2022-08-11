@@ -1,9 +1,7 @@
 package com.thoughtworks.training.controller.mapper;
-
-import com.thoughtworks.training.controller.dto.CinemaResponse;
 import com.thoughtworks.training.controller.dto.FoodOrderResponse;
-import com.thoughtworks.training.entity.Cinema;
 import com.thoughtworks.training.entity.FoodOrder;
+import com.thoughtworks.training.utils.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +11,12 @@ import java.util.stream.Collectors;
 @Component
 public class FoodOrderMapper {
 
+    DateUtil dateUtil = new DateUtil();
+
     public FoodOrderResponse toResponse(FoodOrder foodOrder) {
         FoodOrderResponse foodOrderResponse = new FoodOrderResponse();
         BeanUtils.copyProperties(foodOrder, foodOrderResponse);
+        foodOrderResponse.setCreateTime(dateUtil.getDateString(foodOrder.getCreateTime()));
         return foodOrderResponse;
     }
 

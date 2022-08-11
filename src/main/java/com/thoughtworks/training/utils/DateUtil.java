@@ -12,7 +12,7 @@ public class DateUtil {
         return allFormate.format(new Date());
     }
 
-    public String getTodayDateString(Date date) {
+    public String getDateString(Date date) {
         return allFormate.format(date);
     }
 

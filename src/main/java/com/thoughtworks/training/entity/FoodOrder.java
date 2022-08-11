@@ -12,14 +12,18 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "food_order")
 public class FoodOrder {
     @Id
-    @Column(name = "order_id")
+    @Column(name = "food_order_id")
     private String id;
-    @JoinColumn(name = "user_id")
+    private String foodName;
+    @Column(name = "user_id")
     private Long userId;
     private Integer count;
     private Boolean isUsed;
+    private Double totalPrice;
+    private Double price;
     @CreatedDate
     private Date createTime;
 }

@@ -19,8 +19,8 @@ public class ScreeningMapper {
         screeningResponse.setLanguage(screening.getMovie().getLanguage());
         screeningResponse.setMoviePrice(screening.getMovie().getMoney());
         screeningResponse.setMovieId(screening.getMovie().getMovieId());
-        screeningResponse.setStartDate(dateUtil.getTodayDateString(screening.getStartDateTime()));
-        screeningResponse.setEndTime(dateUtil.getTodayDateString(dateUtil.addMinutes(screening.getStartDateTime(), screening.getMovie().getLength())));
+        screeningResponse.setStartDate(dateUtil.getDateString(screening.getStartDateTime()));
+        screeningResponse.setEndTime(dateUtil.getDateString(dateUtil.addMinutes(screening.getStartDateTime(), screening.getMovie().getLength())));
         screeningResponse.setAuditoriumId(1);
         screeningResponse.setAuditoriumName("暂无");
         return screeningResponse;

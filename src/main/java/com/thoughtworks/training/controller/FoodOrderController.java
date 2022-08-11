@@ -11,7 +11,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/foodOrders")
+@RequestMapping("/food-orders")
 public class FoodOrderController {
 
     @Autowired
