@@ -3,7 +3,6 @@ package com.thoughtworks.training.controller;
 import com.thoughtworks.training.controller.dto.ScreeningResponse;
 import com.thoughtworks.training.controller.dto.SeatBookingRequest;
 import com.thoughtworks.training.controller.dto.SeatResponse;
-import com.thoughtworks.training.exception.UserException;
 import com.thoughtworks.training.service.ScreeningService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +40,14 @@ public class ScreeningController {
             @PathVariable Integer screeningId,
             @RequestBody SeatBookingRequest request,
             Principal principal
-    ) throws UserException {
+    ) throws Exception {
         return screeningService.bookingSeats(screeningId, request, principal);
     }
 
     @GetMapping("/{screeningId}")
     public ResponseEntity<List<SeatResponse>> bookingSeat(
             @PathVariable Integer screeningId
-    ) throws UserException {
+    ) throws Exception {
         return screeningService.getSeatStatus(screeningId);
     }
 

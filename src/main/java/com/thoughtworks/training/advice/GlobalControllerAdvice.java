@@ -2,6 +2,7 @@ package com.thoughtworks.training.advice;
 
 import com.thoughtworks.training.exception.MovieNotFoundException;
 import com.thoughtworks.training.exception.RoleException;
+import com.thoughtworks.training.exception.SeatException;
 import com.thoughtworks.training.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -33,5 +34,11 @@ public class GlobalControllerAdvice {
     @ExceptionHandler({BadCredentialsException.class})
     public ErrorResponse handleLoginFountException() {
         return new ErrorResponse("Username or password is wrong", HttpStatus.NOT_FOUND.value() + "");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({SeatException.class})
+    public ErrorResponse handleSeatException(Exception e) {
+        return new ErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST.value() + "");
     }
 }

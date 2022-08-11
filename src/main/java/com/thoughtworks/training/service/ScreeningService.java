@@ -8,6 +8,7 @@ import com.thoughtworks.training.controller.mapper.SeatMapper;
 import com.thoughtworks.training.entity.Screening;
 import com.thoughtworks.training.entity.Seat;
 import com.thoughtworks.training.entity.User;
+import com.thoughtworks.training.exception.SeatException;
 import com.thoughtworks.training.exception.UserException;
 import com.thoughtworks.training.repository.ScreeningRepository;
 import com.thoughtworks.training.repository.SeatRepository;
@@ -35,13 +36,13 @@ public class ScreeningService {
     private SeatRepository seatRepository;
 
     private static void booking(SeatBookingRequest request, int singleFlag, User user, Screening screening)
-            throws UserException {
+            throws Exception {
         for (ArrayList<Integer> booking : request.getBookings()) {
             Seat res = screening.getSeats().stream().filter(
                     seat -> seat.getX().equals(booking.get(0)) && seat.getY().equals(booking.get(1))
-            ).findFirst().orElseThrow(() -> new UserException("Seat Not Found"));
+            ).findFirst().orElseThrow(() -> new SeatException("Seat Not Found"));
             if (res.getStatus() != 0) {
-                throw new UserException("Seat Occupied");
+                throw new SeatException("Seat Occupied");
             } else {
                 if (singleFlag == 1) {
                     res.setStatus(1);
@@ -86,7 +87,7 @@ public class ScreeningService {
     }
 
     public ResponseEntity<Void> bookingSeats(Integer screeningId, SeatBookingRequest request, Principal principal)
-            throws UserException {
+            throws Exception {
         int singleFlag;
         if (request.getBookings().size() == 1) {
             singleFlag = 1;
@@ -98,16 +99,16 @@ public class ScreeningService {
         User user = userRepository.findByUsernameOrEmail(principal.getName(), principal.getName())
                 .orElseThrow(() -> new UserException("User Not Found"));
         Screening screening = screeningRepository.findById(screeningId)
-                .orElseThrow(() -> new UserException("Screening Not Found"));
+                .orElseThrow(() -> new SeatException("Screening Not Found"));
         initScreeningSeat(screening);
         booking(request, singleFlag, user, screening);
         screeningRepository.save(screening);
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<List<SeatResponse>> getSeatStatus(Integer screeningId) throws UserException {
+    public ResponseEntity<List<SeatResponse>> getSeatStatus(Integer screeningId) throws Exception {
         Screening screening = screeningRepository.findById(screeningId)
-                .orElseThrow(() -> new UserException("Screening Not Found Exception"));
+                .orElseThrow(() -> new SeatException("Screening Not Found"));
         initScreeningSeat(screening);
         screeningRepository.save(screening);
 
