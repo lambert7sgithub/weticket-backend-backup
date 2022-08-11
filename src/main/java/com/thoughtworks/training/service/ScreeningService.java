@@ -45,11 +45,13 @@ public class ScreeningService {
             } else {
                 if (singleFlag == 1) {
                     res.setStatus(1);
-                    res.setUser(user);
                 } else {
                     res.setStatus(2);
-                    res.setUser(user);
                 }
+                if (!request.getWillingPair()) {
+                    res.setStatus(3);
+                }
+                res.setUser(user);
                 screening.getSeats().add(res);
             }
         }
@@ -93,7 +95,6 @@ public class ScreeningService {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         User user = userRepository.findByUsernameOrEmail(principal.getName(), principal.getName())
                 .orElseThrow(() -> new UserException("User Not Found"));
         Screening screening = screeningRepository.findById(screeningId)
