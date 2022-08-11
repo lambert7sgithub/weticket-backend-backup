@@ -125,7 +125,7 @@ public class ScreeningService {
         Order order = new Order();
         order.setOrderId(String.valueOf(UUID.randomUUID().getMostSignificantBits()));
         order.setScreeningId(screeningId);
-        order.setCinemaId(screening.getScreeningId());
+        order.setCinemaId(screening.getCinema().getCinemaId());
         order.setIsUsed(false);
         order.setUserId(user.getId());
         order.setMovieId(screening.getMovie().getMovieId());
