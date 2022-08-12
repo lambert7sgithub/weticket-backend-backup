@@ -152,7 +152,7 @@ public class ScreeningService {
         response.setPrice(screening.getMovie().getMoney());
         response.setPicture(screening.getMovie().getPicture());
         response.setMovieName(screening.getMovie().getMovieName());
-        response.setScreeningRoom(screening.getCinema().getCinemaName() + screening.getScreeningId());
+        response.setScreeningRoom(String.format("%d 号厅", screening.getScreeningId()));
         response.setMovieLength(screening.getMovie().getLength());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
